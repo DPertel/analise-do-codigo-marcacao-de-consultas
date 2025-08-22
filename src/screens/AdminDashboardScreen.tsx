@@ -15,6 +15,7 @@ type AdminDashboardScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'AdminDashboard'>;
 };
 
+
 interface Appointment {
   id: string;
   patientId: string;

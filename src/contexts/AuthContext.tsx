@@ -10,6 +10,7 @@ const STORAGE_KEYS = {
   TOKEN: '@MedicalApp:token',
 };
 
+
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

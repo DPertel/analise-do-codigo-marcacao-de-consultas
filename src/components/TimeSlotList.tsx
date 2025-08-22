@@ -1,24 +1,38 @@
+// =============================================
+// Arquivo: TimeSlotList.tsx
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import React from 'react';
+// Importação de módulos, bibliotecas e componentes necessários
 import styled from 'styled-components/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { ViewStyle, TouchableOpacity } from 'react-native';
+// Importação de módulos, bibliotecas e componentes necessários
 import theme from '../styles/theme';
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 interface TimeSlotListProps {
   onSelectTime: (time: string) => void;
   selectedTime?: string;
   style?: ViewStyle;
 }
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 interface StyledProps {
   isSelected: boolean;
 }
 
+// Declaração de função ou variável com arrow function
 const TimeSlotList: React.FC<TimeSlotListProps> = ({
   onSelectTime,
   selectedTime,
   style,
 }) => {
   // Gera horários de 30 em 30 minutos das 9h às 18h
+// Declaração de função ou variável com arrow function
   const generateTimeSlots = () => {
     const slots: string[] = [];
     for (let hour = 9; hour < 18; hour++) {
@@ -28,8 +42,10 @@ const TimeSlotList: React.FC<TimeSlotListProps> = ({
     return slots;
   };
 
+// Declaração de função ou variável com arrow function
   const timeSlots = generateTimeSlots();
 
+// Renderização JSX do componente (UI)
   return (
     <Container style={style}>
       <TimeGrid>
@@ -58,6 +74,7 @@ const TimeGrid = styled.View`
   gap: 6px;
 `;
 
+// Declaração de função ou variável com arrow function
 const TimeCard = styled(TouchableOpacity)<StyledProps>`
   width: 23%;
   padding: 8px;

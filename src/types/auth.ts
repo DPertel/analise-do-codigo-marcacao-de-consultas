@@ -1,3 +1,9 @@
+// =============================================
+// Arquivo: auth.ts
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
 /**
  * Tipos relacionados à autenticação e autorização
  */
@@ -5,11 +11,13 @@
 /**
  * Perfis de usuário disponíveis no sistema
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export type UserRole = 'admin' | 'doctor' | 'patient';
 
 /**
  * Interface base do usuário
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export interface BaseUser {
   id: string;
   name: string;
@@ -21,6 +29,7 @@ export interface BaseUser {
 /**
  * Interface do médico
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export interface Doctor extends BaseUser {
   role: 'doctor';
   specialty: string;
@@ -29,6 +38,7 @@ export interface Doctor extends BaseUser {
 /**
  * Interface do paciente
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export interface Patient extends BaseUser {
   role: 'patient';
 }
@@ -36,6 +46,7 @@ export interface Patient extends BaseUser {
 /**
  * Interface do administrador
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export interface Admin extends BaseUser {
   role: 'admin';
 }
@@ -43,11 +54,13 @@ export interface Admin extends BaseUser {
 /**
  * Interface do usuário autenticado
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export type User = Admin | Doctor | Patient;
 
 /**
  * Dados necessários para login
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export interface LoginCredentials {
   email: string;
   password: string;
@@ -56,6 +69,7 @@ export interface LoginCredentials {
 /**
  * Dados necessários para registro
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export interface RegisterData {
   name: string;
   email: string;
@@ -65,6 +79,7 @@ export interface RegisterData {
 /**
  * Resposta da API de autenticação
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export interface AuthResponse {
   user: User;
   token: string;
@@ -73,6 +88,7 @@ export interface AuthResponse {
 /**
  * Contexto de autenticação
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export interface AuthContextData {
   user: User | null;
   loading: boolean;

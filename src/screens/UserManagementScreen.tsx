@@ -1,20 +1,40 @@
+// =============================================
+// Arquivo: UserManagementScreen.tsx
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import React, { useState } from 'react';
+// Importação de módulos, bibliotecas e componentes necessários
 import styled from 'styled-components/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { ScrollView, ViewStyle, TextStyle } from 'react-native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Button, ListItem, Text } from 'react-native-elements';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useAuth } from '../contexts/AuthContext';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useNavigation } from '@react-navigation/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useFocusEffect } from '@react-navigation/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { RootStackParamList } from '../types/navigation';
+// Importação de módulos, bibliotecas e componentes necessários
 import theme from '../styles/theme';
+// Importação de módulos, bibliotecas e componentes necessários
 import Header from '../components/Header';
+// Importação de módulos, bibliotecas e componentes necessários
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 type UserManagementScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'UserManagement'>;
 };
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 interface User {
   id: string;
   name: string;
@@ -22,22 +42,32 @@ interface User {
   role: 'admin' | 'doctor' | 'patient';
 }
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 interface StyledProps {
   role: string;
 }
 
+// Declaração de função ou variável com arrow function
 const UserManagementScreen: React.FC = () => {
+// Declaração de função ou variável com arrow function
   const { user } = useAuth();
+// Declaração de função ou variável com arrow function
   const navigation = useNavigation<UserManagementScreenProps['navigation']>();
+// Declaração de estado local com useState (React Hook)
   const [users, setUsers] = useState<User[]>([]);
+// Declaração de estado local com useState (React Hook)
   const [loading, setLoading] = useState(true);
 
+// Declaração de função ou variável com arrow function
   const loadUsers = async () => {
     try {
+// Declaração de função ou variável com arrow function
       const storedUsers = await AsyncStorage.getItem('@MedicalApp:users');
       if (storedUsers) {
+// Declaração de função ou variável com arrow function
         const allUsers: User[] = JSON.parse(storedUsers);
         // Filtra o usuário atual da lista
+// Declaração de função ou variável com arrow function
         const filteredUsers = allUsers.filter(u => u.id !== user?.id);
         setUsers(filteredUsers);
       }
@@ -48,11 +78,15 @@ const UserManagementScreen: React.FC = () => {
     }
   };
 
+// Declaração de função ou variável com arrow function
   const handleDeleteUser = async (userId: string) => {
     try {
+// Declaração de função ou variável com arrow function
       const storedUsers = await AsyncStorage.getItem('@MedicalApp:users');
       if (storedUsers) {
+// Declaração de função ou variável com arrow function
         const allUsers: User[] = JSON.parse(storedUsers);
+// Declaração de função ou variável com arrow function
         const updatedUsers = allUsers.filter(u => u.id !== userId);
         await AsyncStorage.setItem('@MedicalApp:users', JSON.stringify(updatedUsers));
         loadUsers(); // Recarrega a lista
@@ -69,6 +103,7 @@ const UserManagementScreen: React.FC = () => {
     }, [])
   );
 
+// Declaração de função ou variável com arrow function
   const getRoleText = (role: string) => {
     switch (role) {
       case 'admin':
@@ -82,6 +117,7 @@ const UserManagementScreen: React.FC = () => {
     }
   };
 
+// Renderização JSX do componente (UI)
   return (
     <Container>
       <Header />
@@ -197,6 +233,7 @@ const Title = styled.Text`
   text-align: center;
 `;
 
+// Declaração de função ou variável com arrow function
 const UserCard = styled(ListItem)`
   background-color: ${theme.colors.background};
   border-radius: 8px;

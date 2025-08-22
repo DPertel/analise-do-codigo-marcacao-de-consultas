@@ -1,25 +1,49 @@
+// =============================================
+// Arquivo: LoginScreen.tsx
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import React, { useState } from 'react';
+// Importação de módulos, bibliotecas e componentes necessários
 import styled from 'styled-components/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Input, Button, Text } from 'react-native-elements';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useAuth } from '../contexts/AuthContext';
+// Importação de módulos, bibliotecas e componentes necessários
 import theme from '../styles/theme';
+// Importação de módulos, bibliotecas e componentes necessários
 import { ViewStyle } from 'react-native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useNavigation } from '@react-navigation/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+// Importação de módulos, bibliotecas e componentes necessários
 import { RootStackParamList } from '../types/navigation';
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 type LoginScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
 };
 
+// Declaração de função ou variável com arrow function
 const LoginScreen: React.FC = () => {
+// Declaração de função ou variável com arrow function
   const { signIn } = useAuth();
+// Declaração de função ou variável com arrow function
   const navigation = useNavigation<LoginScreenProps['navigation']>();
+// Declaração de estado local com useState (React Hook)
   const [email, setEmail] = useState('');
+// Declaração de estado local com useState (React Hook)
   const [password, setPassword] = useState('');
+// Declaração de estado local com useState (React Hook)
   const [loading, setLoading] = useState(false);
+// Declaração de estado local com useState (React Hook)
   const [error, setError] = useState('');
 
+// Declaração de função ou variável com arrow function
   const handleLogin = async () => {
     try {
       setLoading(true);
@@ -32,6 +56,7 @@ const LoginScreen: React.FC = () => {
     }
   };
 
+// Renderização JSX do componente (UI)
   return (
     <Container>
       <Title>App Marcação de Consultas</Title>
@@ -40,6 +65,7 @@ const LoginScreen: React.FC = () => {
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
+// Chamada à API/backend para buscar ou enviar dados
         autoCapitalize="none"
         keyboardType="email-address"
         containerStyle={styles.input}

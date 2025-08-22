@@ -1,14 +1,28 @@
+// =============================================
+// Arquivo: Header.tsx
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import React from 'react';
+// Importação de módulos, bibliotecas e componentes necessários
 import styled from 'styled-components/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Avatar } from 'react-native-elements';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useAuth } from '../contexts/AuthContext';
+// Importação de módulos, bibliotecas e componentes necessários
 import theme from '../styles/theme';
 
+// Declaração de função ou variável com arrow function
 const Header: React.FC = () => {
+// Declaração de função ou variável com arrow function
   const { user } = useAuth();
 
   if (!user) return null;
 
+// Renderização JSX do componente (UI)
   return (
     <Container>
       <UserInfo>

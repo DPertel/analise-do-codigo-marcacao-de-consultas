@@ -1,3 +1,9 @@
+// =============================================
+// Arquivo: theme.ts
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
 export default {
    colors: {
       primary: '#4A90E2',

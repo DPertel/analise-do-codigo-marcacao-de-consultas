@@ -1,8 +1,16 @@
+// =============================================
+// Arquivo: appointmentsApi.ts
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import { apiClient, API_ENDPOINTS } from './api';
 
 /**
  * Interface para a consulta retornada pela API
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 interface ApiAppointment {
   id: number;
   dataHora: string;
@@ -16,6 +24,7 @@ interface ApiAppointment {
 /**
  * Interface para a consulta usada no frontend
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export interface Appointment {
   id: string;
   date: string;
@@ -30,6 +39,7 @@ export interface Appointment {
 /**
  * Interface para criar uma nova consulta
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export interface CreateAppointmentData {
   dataHora: string;
   especialidade: string;
@@ -41,12 +51,14 @@ export interface CreateAppointmentData {
 /**
  * Serviço para gerenciar consultas médicas
  */
+// Exportação de um componente/função principal deste arquivo
 export const appointmentsApiService = {
   /**
    * Cria uma nova consulta
    */
   async createAppointment(data: CreateAppointmentData): Promise<Appointment> {
     try {
+// Chamada à API/backend para buscar ou enviar dados
       const appointment = await apiClient.post<ApiAppointment>(
         API_ENDPOINTS.APPOINTMENTS,
         {
@@ -66,6 +78,7 @@ export const appointmentsApiService = {
    */
   async getAppointmentById(id: string): Promise<Appointment> {
     try {
+// Chamada à API/backend para buscar ou enviar dados
       const appointment = await apiClient.get<ApiAppointment>(
         `${API_ENDPOINTS.APPOINTMENTS}/${id}`
       );
@@ -81,6 +94,7 @@ export const appointmentsApiService = {
    */
   async cancelAppointment(id: string): Promise<void> {
     try {
+// Chamada à API/backend para buscar ou enviar dados
       await apiClient.delete(`${API_ENDPOINTS.APPOINTMENTS}/${id}`);
     } catch (error) {
       console.error('Erro ao cancelar consulta:', error);
@@ -91,14 +105,19 @@ export const appointmentsApiService = {
   /**
    * Mapeia uma consulta da API para o formato usado no frontend
    */
+// Chamada à API/backend para buscar ou enviar dados
   mapApiAppointmentToAppointment(apiAppointment: ApiAppointment): Appointment {
     // Divide data e hora
+// Chamada à API/backend para buscar ou enviar dados
     const dateTime = new Date(apiAppointment.dataHora);
+// Declaração de função ou variável com arrow function
     const date = dateTime.toISOString().split('T')[0];
+// Declaração de função ou variável com arrow function
     const time = dateTime.toTimeString().slice(0, 5);
 
     // Mapeia o status
     let status: Appointment['status'];
+// Chamada à API/backend para buscar ou enviar dados
     switch (apiAppointment.status) {
       case 'AGENDADA':
         status = 'scheduled';
@@ -117,12 +136,17 @@ export const appointmentsApiService = {
     }
 
     return {
+// Chamada à API/backend para buscar ou enviar dados
       id: apiAppointment.id.toString(),
       date,
       time,
+// Chamada à API/backend para buscar ou enviar dados
       specialty: apiAppointment.especialidade,
+// Chamada à API/backend para buscar ou enviar dados
       patientId: apiAppointment.usuarioId.toString(),
+// Chamada à API/backend para buscar ou enviar dados
       doctorId: apiAppointment.medicoId.toString(),
+// Chamada à API/backend para buscar ou enviar dados
       notes: apiAppointment.observacao,
       status,
     };

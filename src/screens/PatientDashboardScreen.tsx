@@ -1,20 +1,40 @@
+// =============================================
+// Arquivo: PatientDashboardScreen.tsx
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import React, { useState } from 'react';
+// Importação de módulos, bibliotecas e componentes necessários
 import styled from 'styled-components/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { ScrollView, ViewStyle, TextStyle } from 'react-native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Button, ListItem, Text } from 'react-native-elements';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useAuth } from '../contexts/AuthContext';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useNavigation } from '@react-navigation/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useFocusEffect } from '@react-navigation/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { RootStackParamList } from '../types/navigation';
+// Importação de módulos, bibliotecas e componentes necessários
 import theme from '../styles/theme';
+// Importação de módulos, bibliotecas e componentes necessários
 import Header from '../components/Header';
+// Importação de módulos, bibliotecas e componentes necessários
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 type PatientDashboardScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'PatientDashboard'>;
 };
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 interface Appointment {
   id: string;
   patientId: string;
@@ -27,10 +47,12 @@ interface Appointment {
   status: 'pending' | 'confirmed' | 'cancelled';
 }
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 interface StyledProps {
   status: string;
 }
 
+// Declaração de função ou variável com arrow function
 const getStatusColor = (status: string) => {
   switch (status) {
     case 'confirmed':
@@ -42,6 +64,7 @@ const getStatusColor = (status: string) => {
   }
 };
 
+// Declaração de função ou variável com arrow function
 const getStatusText = (status: string) => {
   switch (status) {
     case 'confirmed':
@@ -53,17 +76,26 @@ const getStatusText = (status: string) => {
   }
 };
 
+// Declaração de função ou variável com arrow function
 const PatientDashboardScreen: React.FC = () => {
+// Declaração de função ou variável com arrow function
   const { user, signOut } = useAuth();
+// Declaração de função ou variável com arrow function
   const navigation = useNavigation<PatientDashboardScreenProps['navigation']>();
+// Declaração de estado local com useState (React Hook)
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+// Declaração de estado local com useState (React Hook)
   const [loading, setLoading] = useState(true);
 
+// Declaração de função ou variável com arrow function
   const loadAppointments = async () => {
     try {
+// Declaração de função ou variável com arrow function
       const storedAppointments = await AsyncStorage.getItem('@MedicalApp:appointments');
       if (storedAppointments) {
+// Declaração de função ou variável com arrow function
         const allAppointments: Appointment[] = JSON.parse(storedAppointments);
+// Declaração de função ou variável com arrow function
         const userAppointments = allAppointments.filter(
           (appointment) => appointment.patientId === user?.id
         );
@@ -83,6 +115,7 @@ const PatientDashboardScreen: React.FC = () => {
     }, [])
   );
 
+// Renderização JSX do componente (UI)
   return (
     <Container>
       <Header />
@@ -195,6 +228,7 @@ const Title = styled.Text`
   text-align: center;
 `;
 
+// Declaração de função ou variável com arrow function
 const AppointmentCard = styled(ListItem)`
   background-color: ${theme.colors.background};
   border-radius: 8px;

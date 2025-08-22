@@ -1,9 +1,21 @@
+// =============================================
+// Arquivo: DoctorList.tsx
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import React from 'react';
+// Importação de módulos, bibliotecas e componentes necessários
 import styled from 'styled-components/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { ViewStyle } from 'react-native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { ListItem, Avatar } from 'react-native-elements';
+// Importação de módulos, bibliotecas e componentes necessários
 import theme from '../styles/theme';
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 interface Doctor {
   id: string;
   name: string;
@@ -12,6 +24,7 @@ interface Doctor {
 }
 
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 interface DoctorListProps {
   doctors: Doctor[];
   onSelectDoctor: (doctor: Doctor) => void;
@@ -19,12 +32,14 @@ interface DoctorListProps {
   style?: ViewStyle;
 }
 
+// Declaração de função ou variável com arrow function
 const DoctorList: React.FC<DoctorListProps> = ({
   doctors,
   onSelectDoctor,
   selectedDoctorId,
   style,
 }) => {
+// Renderização JSX do componente (UI)
   return (
     <Container style={style}>
       {doctors.map((doctor) => (

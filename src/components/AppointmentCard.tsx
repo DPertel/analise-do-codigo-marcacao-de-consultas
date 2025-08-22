@@ -1,9 +1,21 @@
+// =============================================
+// Arquivo: AppointmentCard.tsx
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import React from 'react';
+// Importação de módulos, bibliotecas e componentes necessários
 import styled from 'styled-components/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { ViewStyle } from 'react-native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Card, Text, Avatar } from 'react-native-elements';
+// Importação de módulos, bibliotecas e componentes necessários
 import theme from '../styles/theme';
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 interface AppointmentCardProps {
   doctorName: string;
   date: string;
@@ -14,6 +26,7 @@ interface AppointmentCardProps {
   style?: ViewStyle;
 }
 
+// Declaração de função ou variável com arrow function
 const AppointmentCard: React.FC<AppointmentCardProps> = ({
   doctorName,
   date,
@@ -23,6 +36,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
   onPress,
   style,
 }) => {
+// Declaração de função ou variável com arrow function
   const getStatusColor = () => {
     switch (status) {
       case 'confirmed':
@@ -34,6 +48,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
     }
   };
 
+// Renderização JSX do componente (UI)
   return (
     <Card containerStyle={[styles.card, style]}>
       <CardContent>
@@ -41,6 +56,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
           <Avatar
             size="medium"
             rounded
+// Chamada à API/backend para buscar ou enviar dados
             source={{ uri: `https://randomuser.me/api/portraits/men/${Math.floor(Math.random() * 10)}.jpg` }}
             containerStyle={styles.avatar}
           />

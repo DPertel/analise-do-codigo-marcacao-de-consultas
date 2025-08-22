@@ -1,9 +1,18 @@
+// =============================================
+// Arquivo: authApi.ts
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import { apiClient, API_ENDPOINTS } from './api';
+// Importação de módulos, bibliotecas e componentes necessários
 import { User, LoginCredentials, RegisterData, AuthResponse } from '../types/auth';
 
 /**
  * Interface para a resposta de login da API
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 interface ApiLoginResponse {
   token: string;
 }
@@ -11,6 +20,7 @@ interface ApiLoginResponse {
 /**
  * Interface para o usuário retornado pela API
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 interface ApiUser {
   id: number;
   nome: string;
@@ -21,6 +31,7 @@ interface ApiUser {
 /**
  * Serviço de autenticação que se conecta com a API do backend
  */
+// Exportação de um componente/função principal deste arquivo
 export const authApiService = {
   /**
    * Faz login com a API
@@ -28,6 +39,7 @@ export const authApiService = {
   async signIn(credentials: LoginCredentials): Promise<AuthResponse> {
     try {
       // Faz a requisição de login
+// Chamada à API/backend para buscar ou enviar dados
       const loginResponse = await apiClient.post<ApiLoginResponse>(
         API_ENDPOINTS.LOGIN,
         {
@@ -37,9 +49,11 @@ export const authApiService = {
       );
 
       // Define o token no cliente da API
+// Chamada à API/backend para buscar ou enviar dados
       apiClient.setToken(loginResponse.token);
 
       // Busca os dados do usuário
+// Declaração de função ou variável com arrow function
       const userData = await this.getCurrentUser();
 
       return {
@@ -58,6 +72,7 @@ export const authApiService = {
   async register(data: RegisterData): Promise<AuthResponse> {
     try {
       // Cria o usuário
+// Chamada à API/backend para buscar ou enviar dados
       const newUser = await apiClient.post<ApiUser>(API_ENDPOINTS.REGISTER, {
         nome: data.name,
         email: data.email,
@@ -82,6 +97,7 @@ export const authApiService = {
   async getCurrentUser(): Promise<User> {
     try {
       // Busca o usuário atual usando o endpoint específico que utiliza o JWT
+// Chamada à API/backend para buscar ou enviar dados
       const currentUser = await apiClient.get<ApiUser>(API_ENDPOINTS.CURRENT_USER);
       return this.mapApiUserToUser(currentUser);
     } catch (error) {
@@ -95,6 +111,7 @@ export const authApiService = {
    */
   async getAllDoctors(): Promise<User[]> {
     try {
+// Chamada à API/backend para buscar ou enviar dados
       const doctors = await apiClient.get<ApiUser[]>(API_ENDPOINTS.DOCTORS);
       return doctors.map(this.mapApiUserToUser);
     } catch (error) {
@@ -108,6 +125,7 @@ export const authApiService = {
    */
   async getDoctorsBySpecialty(specialty: string): Promise<User[]> {
     try {
+// Chamada à API/backend para buscar ou enviar dados
       const doctors = await apiClient.get<ApiUser[]>(
         `${API_ENDPOINTS.DOCTORS}?especialidade=${encodeURIComponent(specialty)}`
       );
@@ -123,20 +141,27 @@ export const authApiService = {
    */
   async signOut(): Promise<void> {
     // Remove o token do cliente da API
+// Chamada à API/backend para buscar ou enviar dados
     apiClient.setToken(null);
   },
 
   /**
    * Mapeia um usuário da API para o formato usado no frontend
    */
+// Chamada à API/backend para buscar ou enviar dados
   mapApiUserToUser(apiUser: ApiUser): User {
     const baseUser = {
+// Chamada à API/backend para buscar ou enviar dados
       id: apiUser.id.toString(),
+// Chamada à API/backend para buscar ou enviar dados
       name: apiUser.nome,
+// Chamada à API/backend para buscar ou enviar dados
       email: apiUser.email,
+// Chamada à API/backend para buscar ou enviar dados
       image: `https://randomuser.me/api/portraits/${apiUser.id % 2 === 0 ? 'men' : 'women'}/${(apiUser.id % 10) + 1}.jpg`,
     };
 
+// Chamada à API/backend para buscar ou enviar dados
     switch (apiUser.tipo) {
       case 'ADMIN':
         return {
@@ -155,6 +180,7 @@ export const authApiService = {
           role: 'patient' as const,
         };
       default:
+// Chamada à API/backend para buscar ou enviar dados
         throw new Error(`Tipo de usuário inválido: ${apiUser.tipo}`);
     }
   },

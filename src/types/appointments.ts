@@ -1,3 +1,9 @@
+// =============================================
+// Arquivo: appointments.ts
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
 /**
  * Tipos relacionados a consultas médicas
  * Este arquivo contém todas as definições de tipos necessárias para o gerenciamento de consultas
@@ -12,6 +18,7 @@
  * @property description - Descrição ou motivo da consulta
  * @property status - Status atual da consulta (agendada, realizada, cancelada)
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export type Appointment = {
   id: string;
   doctorId: string;

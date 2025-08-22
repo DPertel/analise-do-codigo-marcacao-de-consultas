@@ -1,3 +1,9 @@
+// =============================================
+// Arquivo: navigation.ts
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
 /**
  * Tipos relacionados à navegação
  * Este arquivo contém todas as definições de tipos necessárias para a navegação entre telas
@@ -15,6 +21,7 @@
  * @property PatientDashboard - Tela do painel do paciente
  * @property UserManagement - Tela de gerenciamento de usuários
  */
+// Definição de tipos/interfaces TypeScript para tipagem forte
 export type RootStackParamList = {
   Login: undefined;
   Register: undefined;

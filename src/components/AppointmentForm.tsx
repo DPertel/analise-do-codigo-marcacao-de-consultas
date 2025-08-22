@@ -1,14 +1,31 @@
+// =============================================
+// Arquivo: AppointmentForm.tsx
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import React, { useState, useEffect } from 'react';
+// Importação de módulos, bibliotecas e componentes necessários
 import styled from 'styled-components/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Button, Input, Text } from 'react-native-elements';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Platform, View, TouchableOpacity, Alert } from 'react-native';
+// Importação de módulos, bibliotecas e componentes necessários
 import theme from '../styles/theme';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Doctor } from '../types/doctors';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Appointment } from '../types/appointments';
+// Importação de módulos, bibliotecas e componentes necessários
 import { authApiService } from '../services/authApi';
+// Importação de módulos, bibliotecas e componentes necessários
 import { specialtiesApiService, Specialty } from '../services/specialtiesApi';
+// Importação de módulos, bibliotecas e componentes necessários
 import { User } from '../types/auth';
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 type AppointmentFormProps = {
    onSubmit: (appointment: {
       doctorId: string;
@@ -18,6 +35,7 @@ type AppointmentFormProps = {
    }) => void;
 };
 
+// Declaração de função ou variável com arrow function
 const generateTimeSlots = () => {
    const slots = [];
    for (let hour = 9; hour < 18; hour++) {
@@ -27,26 +45,38 @@ const generateTimeSlots = () => {
    return slots;
 };
 
+// Declaração de função ou variável com arrow function
 const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
+// Declaração de estado local com useState (React Hook)
    const [selectedDoctor, setSelectedDoctor] = useState<string>('');
+// Declaração de estado local com useState (React Hook)
    const [dateInput, setDateInput] = useState('');
+// Declaração de estado local com useState (React Hook)
    const [selectedTime, setSelectedTime] = useState<string>('');
+// Declaração de estado local com useState (React Hook)
    const [description, setDescription] = useState('');
+// Declaração de estado local com useState (React Hook)
    const [selectedSpecialty, setSelectedSpecialty] = useState<string>('');
    
    // Estados para dados da API
+// Declaração de estado local com useState (React Hook)
    const [doctors, setDoctors] = useState<User[]>([]);
+// Declaração de estado local com useState (React Hook)
    const [specialties, setSpecialties] = useState<Specialty[]>([]);
+// Declaração de estado local com useState (React Hook)
    const [loading, setLoading] = useState(true);
    
+// Declaração de função ou variável com arrow function
    const timeSlots = generateTimeSlots();
 
    // Carrega especialidades e médicos ao montar o componente
+// Efeito colateral com useEffect (executa em ciclos de vida do componente)
    useEffect(() => {
       loadInitialData();
    }, []);
 
    // Carrega médicos quando uma especialidade é selecionada
+// Efeito colateral com useEffect (executa em ciclos de vida do componente)
    useEffect(() => {
       if (selectedSpecialty) {
          loadDoctorsBySpecialty(selectedSpecialty);
@@ -55,9 +85,11 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
       }
    }, [selectedSpecialty]);
 
+// Declaração de função ou variável com arrow function
    const loadInitialData = async () => {
       try {
          setLoading(true);
+// Declaração de função ou variável com arrow function
          const [specialtiesData, doctorsData] = await Promise.all([
             specialtiesApiService.getAllSpecialties(),
             authApiService.getAllDoctors(),
@@ -73,8 +105,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
       }
    };
 
+// Declaração de função ou variável com arrow function
    const loadAllDoctors = async () => {
       try {
+// Declaração de função ou variável com arrow function
          const doctorsData = await authApiService.getAllDoctors();
          setDoctors(doctorsData);
       } catch (error) {
@@ -82,8 +116,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
       }
    };
 
+// Declaração de função ou variável com arrow function
    const loadDoctorsBySpecialty = async (specialty: string) => {
       try {
+// Declaração de função ou variável com arrow function
          const doctorsData = await authApiService.getDoctorsBySpecialty(specialty);
          setDoctors(doctorsData);
          // Reset da seleção de médico quando muda a especialidade
@@ -93,22 +129,30 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
       }
    };
 
+// Declaração de função ou variável com arrow function
    const validateDate = (inputDate: string) => {
+// Declaração de função ou variável com arrow function
       const dateRegex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+// Declaração de função ou variável com arrow function
       const match = inputDate.match(dateRegex);
 
       if (!match) return false;
 
       const [, day, month, year] = match;
+// Declaração de função ou variável com arrow function
       const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+// Declaração de função ou variável com arrow function
       const today = new Date();
+// Declaração de função ou variável com arrow function
       const maxDate = new Date(new Date().setMonth(new Date().getMonth() + 3));
 
       return date >= today && date <= maxDate;
    };
 
+// Declaração de função ou variável com arrow function
    const handleDateChange = (text: string) => {
       // Remove todos os caracteres não numéricos
+// Declaração de função ou variável com arrow function
       const numbers = text.replace(/\D/g, '');
       
       // Formata a data enquanto digita
@@ -126,6 +170,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
       setDateInput(formattedDate);
    };
 
+// Declaração de função ou variável com arrow function
    const handleSubmit = () => {
       if (!selectedDoctor || !selectedTime || !description) {
          alert('Por favor, preencha todos os campos');
@@ -137,7 +182,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
          return;
       }
 
+// Declaração de função ou variável com arrow function
       const [day, month, year] = dateInput.split('/');
+// Declaração de função ou variável com arrow function
       const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
 
       onSubmit({
@@ -148,6 +195,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
       });
    };
 
+// Declaração de função ou variável com arrow function
    const isTimeSlotAvailable = (time: string) => {
       // Aqui você pode adicionar lógica para verificar se o horário está disponível
       // Por exemplo, verificar se já existe uma consulta agendada para este horário
@@ -155,6 +203,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
    };
 
    if (loading) {
+// Renderização JSX do componente (UI)
       return (
          <Container>
             <Text>Carregando...</Text>
@@ -162,6 +211,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
       );
    }
 
+// Renderização JSX do componente (UI)
    return (
       <Container>
          <Title>Selecione a Especialidade</Title>
@@ -223,7 +273,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
             <TimeSlotsTitle>Horários Disponíveis:</TimeSlotsTitle>
             <TimeSlotsGrid>
                {timeSlots.map((time) => {
+// Declaração de função ou variável com arrow function
                   const isAvailable = isTimeSlotAvailable(time);
+// Renderização JSX do componente (UI)
                   return (
                      <TimeSlotButton
                         key={time}
@@ -278,6 +330,7 @@ const DoctorList = styled.ScrollView`
   margin-bottom: ${theme.spacing.large}px;
 `;
 
+// Declaração de função ou variável com arrow function
 const DoctorCard = styled(TouchableOpacity)<{ selected: boolean }>`
   flex-direction: row;
   align-items: center;
@@ -331,6 +384,7 @@ const TimeSlotsGrid = styled.View`
   gap: ${theme.spacing.small}px;
 `;
 
+// Declaração de função ou variável com arrow function
 const TimeSlotButton = styled(TouchableOpacity)<{ selected: boolean; disabled: boolean }>`
   background-color: ${(props: { selected: boolean; disabled: boolean }) => 
     props.disabled 
@@ -350,6 +404,7 @@ const TimeSlotButton = styled(TouchableOpacity)<{ selected: boolean; disabled: b
   opacity: ${(props: { disabled: boolean }) => props.disabled ? 0.5 : 1};
 `;
 
+// Declaração de função ou variável com arrow function
 const TimeSlotText = styled(Text)<{ selected: boolean; disabled: boolean }>`
   font-size: ${theme.typography.body.fontSize}px;
   color: ${(props: { selected: boolean; disabled: boolean }) => 
@@ -367,6 +422,7 @@ const InputContainer = {
    paddingHorizontal: theme.spacing.medium,
 };
 
+// Declaração de função ou variável com arrow function
 const SubmitButton = styled(Button)`
   margin-top: ${theme.spacing.large}px;
 `;
@@ -378,6 +434,7 @@ const SpecialtyContainer = styled.View`
   margin-bottom: ${theme.spacing.large}px;
 `;
 
+// Declaração de função ou variável com arrow function
 const SpecialtyButton = styled(TouchableOpacity)<{ selected: boolean }>`
   background-color: ${(props: { selected: boolean }) => 
     props.selected ? theme.colors.primary : theme.colors.white};
@@ -389,6 +446,7 @@ const SpecialtyButton = styled(TouchableOpacity)<{ selected: boolean }>`
   margin-bottom: ${theme.spacing.small}px;
 `;
 
+// Declaração de função ou variável com arrow function
 const SpecialtyText = styled(Text)<{ selected: boolean }>`
   font-size: ${theme.typography.body.fontSize}px;
   color: ${(props: { selected: boolean }) => 

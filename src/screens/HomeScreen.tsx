@@ -1,17 +1,37 @@
+// =============================================
+// Arquivo: HomeScreen.tsx
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import React, { useEffect, useState } from 'react';
+// Importação de módulos, bibliotecas e componentes necessários
 import styled from 'styled-components/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { FlatList, RefreshControl, TouchableOpacity } from 'react-native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Button, Icon } from 'react-native-elements';
+// Importação de módulos, bibliotecas e componentes necessários
 import { FontAwesome } from '@expo/vector-icons';
+// Importação de módulos, bibliotecas e componentes necessários
 import { HeaderContainer, HeaderTitle } from '../components/Header';
+// Importação de módulos, bibliotecas e componentes necessários
 import theme from '../styles/theme';
+// Importação de módulos, bibliotecas e componentes necessários
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+// Importação de módulos, bibliotecas e componentes necessários
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Appointment } from '../types/appointments';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Doctor } from '../types/doctors';
+// Importação de módulos, bibliotecas e componentes necessários
 import { RootStackParamList } from '../types/navigation';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useFocusEffect } from '@react-navigation/native';
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Home'>;
 };
@@ -21,28 +41,36 @@ const doctors: Doctor[] = [
     id: '1',
     name: 'Dr. João Silva',
     specialty: 'Cardiologista',
+// Chamada à API/backend para buscar ou enviar dados
     image: 'https://mighty.tools/mockmind-api/content/human/91.jpg',
   },
   {
     id: '2',
     name: 'Dra. Maria Santos',
     specialty: 'Dermatologista',
+// Chamada à API/backend para buscar ou enviar dados
     image: 'https://mighty.tools/mockmind-api/content/human/97.jpg',
   },
   {
     id: '3',
     name: 'Dr. Pedro Oliveira',
     specialty: 'Oftalmologista',
+// Chamada à API/backend para buscar ou enviar dados
     image: 'https://mighty.tools/mockmind-api/content/human/79.jpg',
   },
 ];
 
+// Declaração de função ou variável com arrow function
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
+// Declaração de estado local com useState (React Hook)
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+// Declaração de estado local com useState (React Hook)
   const [refreshing, setRefreshing] = useState(false);
 
+// Declaração de função ou variável com arrow function
   const loadAppointments = async () => {
     try {
+// Declaração de função ou variável com arrow function
       const storedAppointments = await AsyncStorage.getItem('appointments');
       if (storedAppointments) {
         setAppointments(JSON.parse(storedAppointments));
@@ -58,19 +86,24 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     }, [])
   );
 
+// Declaração de função ou variável com arrow function
   const onRefresh = async () => {
     setRefreshing(true);
     await loadAppointments();
     setRefreshing(false);
   };
 
+// Declaração de função ou variável com arrow function
   const getDoctorInfo = (doctorId: string): Doctor | undefined => {
     return doctors.find(doctor => doctor.id === doctorId);
   };
 
+// Declaração de função ou variável com arrow function
   const renderAppointment = ({ item }: { item: Appointment }) => {
+// Declaração de função ou variável com arrow function
     const doctor = getDoctorInfo(item.doctorId);
     
+// Renderização JSX do componente (UI)
     return (
       <AppointmentCard>
         <DoctorImage source={{ uri: doctor?.image || 'https://via.placeholder.com/100' }} />
@@ -95,6 +128,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     );
   };
 
+// Renderização JSX do componente (UI)
   return (
     <Container>
       <HeaderContainer>
@@ -147,6 +181,7 @@ const Content = styled.View`
   padding: ${theme.spacing.medium}px;
 `;
 
+// Declaração de função ou variável com arrow function
 const AppointmentList = styled(FlatList)`
   flex: 1;
 `;
@@ -215,6 +250,7 @@ const ActionButtons = styled.View`
   margin-top: ${theme.spacing.small}px;
 `;
 
+// Declaração de função ou variável com arrow function
 const ActionButton = styled(TouchableOpacity)`
   padding: ${theme.spacing.small}px;
   margin-left: ${theme.spacing.small}px;

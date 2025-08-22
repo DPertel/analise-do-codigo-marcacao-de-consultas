@@ -1,22 +1,43 @@
+// =============================================
+// Arquivo: ProfileScreen.tsx
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import React from 'react';
+// Importação de módulos, bibliotecas e componentes necessários
 import styled from 'styled-components/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { Button, ListItem } from 'react-native-elements';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useAuth } from '../contexts/AuthContext';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useNavigation } from '@react-navigation/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+// Importação de módulos, bibliotecas e componentes necessários
 import { RootStackParamList } from '../types/navigation';
+// Importação de módulos, bibliotecas e componentes necessários
 import theme from '../styles/theme';
+// Importação de módulos, bibliotecas e componentes necessários
 import Header from '../components/Header';
+// Importação de módulos, bibliotecas e componentes necessários
 import { ViewStyle } from 'react-native';
 
+// Definição de tipos/interfaces TypeScript para tipagem forte
 type ProfileScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Profile'>;
 };
 
+// Declaração de função ou variável com arrow function
 const ProfileScreen: React.FC = () => {
+// Declaração de função ou variável com arrow function
   const { user, signOut } = useAuth();
+// Declaração de função ou variável com arrow function
   const navigation = useNavigation<ProfileScreenProps['navigation']>();
 
+// Declaração de função ou variável com arrow function
   const getRoleText = (role: string) => {
     switch (role) {
       case 'admin':
@@ -30,6 +51,7 @@ const ProfileScreen: React.FC = () => {
     }
   };
 
+// Renderização JSX do componente (UI)
   return (
     <Container>
       <Header />

@@ -1,11 +1,19 @@
+// =============================================
+// Arquivo: api.ts
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
 /**
  * Configuração base da API
  */
 
 // URL base da API do backend
+// Exportação de um componente/função principal deste arquivo
 export const API_BASE_URL = 'http://localhost:8080';
 
 // Endpoints da API
+// Exportação de um componente/função principal deste arquivo
 export const API_ENDPOINTS = {
   // Autenticação
   LOGIN: '/usuarios/login',
@@ -60,6 +68,7 @@ export class ApiClient {
    * Faz uma requisição GET
    */
   async get<T>(endpoint: string): Promise<T> {
+// Declaração de função ou variável com arrow function
     const response = await fetch(`${this.baseURL}${endpoint}`, {
       method: 'GET',
       headers: this.getHeaders(),
@@ -76,6 +85,7 @@ export class ApiClient {
    * Faz uma requisição POST
    */
   async post<T>(endpoint: string, data?: any): Promise<T> {
+// Declaração de função ou variável com arrow function
     const response = await fetch(`${this.baseURL}${endpoint}`, {
       method: 'POST',
       headers: this.getHeaders(),
@@ -83,6 +93,7 @@ export class ApiClient {
     });
 
     if (!response.ok) {
+// Declaração de função ou variável com arrow function
       const errorText = await response.text();
       throw new Error(`HTTP Error: ${response.status} - ${errorText}`);
     }
@@ -94,6 +105,7 @@ export class ApiClient {
    * Faz uma requisição PUT
    */
   async put<T>(endpoint: string, data?: any): Promise<T> {
+// Declaração de função ou variável com arrow function
     const response = await fetch(`${this.baseURL}${endpoint}`, {
       method: 'PUT',
       headers: this.getHeaders(),
@@ -101,6 +113,7 @@ export class ApiClient {
     });
 
     if (!response.ok) {
+// Declaração de função ou variável com arrow function
       const errorText = await response.text();
       throw new Error(`HTTP Error: ${response.status} - ${errorText}`);
     }
@@ -112,12 +125,14 @@ export class ApiClient {
    * Faz uma requisição DELETE
    */
   async delete(endpoint: string): Promise<void> {
+// Declaração de função ou variável com arrow function
     const response = await fetch(`${this.baseURL}${endpoint}`, {
       method: 'DELETE',
       headers: this.getHeaders(),
     });
 
     if (!response.ok) {
+// Declaração de função ou variável com arrow function
       const errorText = await response.text();
       throw new Error(`HTTP Error: ${response.status} - ${errorText}`);
     }
@@ -125,4 +140,5 @@ export class ApiClient {
 }
 
 // Instância global do cliente da API
+// Exportação de um componente/função principal deste arquivo
 export const apiClient = new ApiClient();

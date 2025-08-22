@@ -1,4 +1,12 @@
+// =============================================
+// Arquivo: auth.ts
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// Importação de módulos, bibliotecas e componentes necessários
 import { User, LoginCredentials, RegisterData, AuthResponse } from '../types/auth';
 
 // Chaves de armazenamento
@@ -16,6 +24,7 @@ const mockDoctors = [
     email: 'joao@example.com',
     role: 'doctor' as const,
     specialty: 'Cardiologia',
+// Chamada à API/backend para buscar ou enviar dados
     image: 'https://randomuser.me/api/portraits/men/1.jpg',
   },
   {
@@ -24,6 +33,7 @@ const mockDoctors = [
     email: 'maria@example.com',
     role: 'doctor' as const,
     specialty: 'Pediatria',
+// Chamada à API/backend para buscar ou enviar dados
     image: 'https://randomuser.me/api/portraits/women/1.jpg',
   },
   {
@@ -32,6 +42,7 @@ const mockDoctors = [
     email: 'pedro@example.com',
     role: 'doctor' as const,
     specialty: 'Ortopedia',
+// Chamada à API/backend para buscar ou enviar dados
     image: 'https://randomuser.me/api/portraits/men/2.jpg',
   },
 ];
@@ -42,12 +53,14 @@ const mockAdmin = {
   name: 'Administrador',
   email: 'admin@example.com',
   role: 'admin' as const,
+// Chamada à API/backend para buscar ou enviar dados
   image: 'https://randomuser.me/api/portraits/men/3.jpg',
 };
 
 // Lista de usuários cadastrados (pacientes)
 let registeredUsers: (User & { password: string })[] = [];
 
+// Exportação de um componente/função principal deste arquivo
 export const authService = {
   async signIn(credentials: LoginCredentials): Promise<AuthResponse> {
     // Verifica se é o admin
@@ -59,6 +72,7 @@ export const authService = {
     }
 
     // Verifica se é um médico
+// Declaração de função ou variável com arrow function
     const doctor = mockDoctors.find(
       (d) => d.email === credentials.email && credentials.password === '123456'
     );
@@ -70,6 +84,7 @@ export const authService = {
     }
 
     // Verifica se é um paciente registrado
+// Declaração de função ou variável com arrow function
     const patient = registeredUsers.find(
       (p) => p.email === credentials.email
     );
@@ -104,6 +119,7 @@ export const authService = {
       name: data.name,
       email: data.email,
       role: 'patient' as const,
+// Chamada à API/backend para buscar ou enviar dados
       image: `https://randomuser.me/api/portraits/${registeredUsers.length % 2 === 0 ? 'men' : 'women'}/${
         registeredUsers.length + 1
       }.jpg`,
@@ -131,6 +147,7 @@ export const authService = {
 
   async getStoredUser(): Promise<User | null> {
     try {
+// Declaração de função ou variável com arrow function
       const userJson = await AsyncStorage.getItem(STORAGE_KEYS.USER);
       if (userJson) {
         return JSON.parse(userJson);
@@ -158,6 +175,7 @@ export const authService = {
   // Função para carregar usuários registrados ao iniciar o app
   async loadRegisteredUsers(): Promise<void> {
     try {
+// Declaração de função ou variável com arrow function
       const usersJson = await AsyncStorage.getItem(STORAGE_KEYS.REGISTERED_USERS);
       if (usersJson) {
         registeredUsers = JSON.parse(usersJson);

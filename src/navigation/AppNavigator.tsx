@@ -1,28 +1,51 @@
+// =============================================
+// Arquivo: AppNavigator.tsx
+// Este arquivo faz parte do sistema de marcação de consultas
+// Comentários adicionados para explicar blocos de código
+// =============================================
+
+// Importação de módulos, bibliotecas e componentes necessários
 import React from 'react';
+// Importação de módulos, bibliotecas e componentes necessários
 import { NavigationContainer } from '@react-navigation/native';
+// Importação de módulos, bibliotecas e componentes necessários
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// Importação de módulos, bibliotecas e componentes necessários
 import { useAuth } from '../contexts/AuthContext';
+// Importação de módulos, bibliotecas e componentes necessários
 import { RootStackParamList } from '../types/navigation';
 
 // Screens
+// Importação de módulos, bibliotecas e componentes necessários
 import LoginScreen from '../screens/LoginScreen';
+// Importação de módulos, bibliotecas e componentes necessários
 import RegisterScreen from '../screens/RegisterScreen';
+// Importação de módulos, bibliotecas e componentes necessários
 import HomeScreen from '../screens/HomeScreen';
+// Importação de módulos, bibliotecas e componentes necessários
 import CreateAppointmentScreen from '../screens/CreateAppointmentScreen';
+// Importação de módulos, bibliotecas e componentes necessários
 import ProfileScreen from '../screens/ProfileScreen';
+// Importação de módulos, bibliotecas e componentes necessários
 import AdminDashboardScreen from '../screens/AdminDashboardScreen';
+// Importação de módulos, bibliotecas e componentes necessários
 import DoctorDashboardScreen from '../screens/DoctorDashboardScreen';
+// Importação de módulos, bibliotecas e componentes necessários
 import PatientDashboardScreen from '../screens/PatientDashboardScreen';
 
+// Declaração de função ou variável com arrow function
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+// Exportação de um componente/função principal deste arquivo
 export const AppNavigator: React.FC = () => {
+// Declaração de função ou variável com arrow function
   const { user, loading } = useAuth();
 
   if (loading) {
     return null; // Ou um componente de loading
   }
 
+// Renderização JSX do componente (UI)
   return (
     <NavigationContainer>
       <Stack.Navigator

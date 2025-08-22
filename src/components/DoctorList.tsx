@@ -11,6 +11,7 @@ interface Doctor {
   image: string;
 }
 
+
 interface DoctorListProps {
   doctors: Doctor[];
   onSelectDoctor: (doctor: Doctor) => void;
